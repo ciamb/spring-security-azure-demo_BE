@@ -1,7 +1,12 @@
-azure:
-  active-directory:
-    tenant-id: fe74d98f-5ec3-4998-8af9-03bb9de60851
-    client-id: 710babd1-ca29-4e0d-a070-32e41d627ee5
-    client-secret: Yjc8Q~QJ.g6lsdLtE0duJ6zTOVF3AC5FSGWn4bIQ
-    user-group:
-      allowed-group-names: group1
+spring:
+  cloud:
+    azure:
+      active-directory:
+        enabled: true
+        profile:
+          tenant-id: fe74d98f-5ec3-4998-8af9-03bb9de60851
+        credential:
+          client-id: 710babd1-ca29-4e0d-a070-32e41d627ee5
+          client-secret: Yjc8Q~QJ.g6lsdLtE0duJ6zTOVF3AC5FSGWn4bIQ
+        user-group:
+          allowed-group-names: group1, group2
