@@ -1,12 +1,24 @@
-#spring:
-#  cloud:
-#    azure:
-#      active-directory:
-#        enabled: true
-#        profile:
-#          tenant-id: fe74d98f-5ec3-4998-8af9-03bb9de60851
-#        credential:
-#          client-id: 710babd1-ca29-4e0d-a070-32e41d627ee5
-#          client-secret: Yjc8Q~QJ.g6lsdLtE0duJ6zTOVF3AC5FSGWn4bIQ
-#        user-group:
-#          allowed-group-names: group1, group2
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://login.microsoftonline.com/fe74d98f-5ec3-4998-8af9-03bb9de60851/discovery/v2.0/keys
+
+  cloud:
+    azure:
+      # Properties like spring.cloud.azure.credential.client-id are global properties.
+      # Properties like spring.cloud.azure.active-directory.credential.client-id are AAD properties.
+      # If AAD properties is not configured, global properties will be used.
+      #      credential:
+      #        client-id:
+      #      profile:
+      #        tenant-id:
+      active-directory:
+        enabled: true
+        credential:
+          client-id: 710babd1-ca29-4e0d-a070-32e41d627ee5
+        profile:
+          tenant-id: fe74d98f-5ec3-4998-8af9-03bb9de60851
+        app-id-uri: api://6f9d2a39-de64-4604-bf98-617c17677168
+        application-type: web_application

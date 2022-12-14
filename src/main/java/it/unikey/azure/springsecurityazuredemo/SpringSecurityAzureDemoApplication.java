@@ -3,8 +3,9 @@ package it.unikey.azure.springsecurityazuredemo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-@EnableWebSecurity
+
 @SpringBootApplication
 public class SpringSecurityAzureDemoApplication {
 
