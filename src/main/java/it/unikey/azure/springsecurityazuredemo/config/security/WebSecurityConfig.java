@@ -1,18 +1,15 @@
 package it.unikey.azure.springsecurityazuredemo.config.security;
 
 import com.azure.spring.cloud.autoconfigure.aad.AadResourceServerWebSecurityConfigurerAdapter;
-import com.azure.spring.cloud.autoconfigure.aad.AadWebSecurityConfigurerAdapter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 
 
 @RequiredArgsConstructor
+@Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends AadResourceServerWebSecurityConfigurerAdapter {
 
     /**
@@ -20,13 +17,7 @@ public class WebSecurityConfig extends AadResourceServerWebSecurityConfigurerAda
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/*")
-                .access("#oauth2.hasScope('" + "access_as_user" + "')"); // required scope to access /api URL
+        super.configure(http);
+        http.authorizeRequests((requests) -> requests.anyRequest().authenticated());
     }
-
-
 }
