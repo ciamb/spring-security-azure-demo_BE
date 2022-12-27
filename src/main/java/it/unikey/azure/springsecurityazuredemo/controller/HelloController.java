@@ -1,28 +1,28 @@
 package it.unikey.azure.springsecurityazuredemo.controller;
 
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class HelloController {
 
-    @GetMapping( "/home" )
-    public String home() {
-        return "hello";
-    }
-    @GetMapping("/hello")
-    @PreAuthorize("hasRole('ROLE_myrole')")
-    public String group1() {
-        return "hello Group1 users, this is the ";
+    @GetMapping( "/home")
+    @PreAuthorize("hasAnyAuthority('SCOPE_File.Write', 'SCOPE_File.Read')")
+    public ResponseEntity<String> home(Principal principal) {
+        return new ResponseEntity<>("{\"str\":\"home ... file.write and file.read scope\", \"prn\": \""+principal.toString()+"\"}", HttpStatus.OK);
     }
 
-    @GetMapping("/group2")
-    @ResponseBody
-    public String group2() {
-        return "hello Group2  users";
+    @GetMapping("/hello")
+    @PreAuthorize("hasAuthority('SCOPE_File.Read')")
+    public ResponseEntity<String> group1() {
+        return new ResponseEntity<>("{\"str\":\"hello caro\"}", HttpStatus.OK);
     }
 }
